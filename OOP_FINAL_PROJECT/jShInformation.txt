@@ -1,0 +1,16 @@
+*
+green
+12345
+name: bracelet, metal: golden, weigth: 0.1 kg, price: 1000 uah
+**
+bandery
+76384
+name: earings, metal: diamond, weigth: 0.01 kg, price: 100000000 uah
+***
+upa
+1
+name: crown, metal: silver, weigth: 5 kg, price: 100000000000000000 uah
+****
+main
+580498
+name: ring , metal: steel, weigth: 0.07 kg, price: 20000 uah
