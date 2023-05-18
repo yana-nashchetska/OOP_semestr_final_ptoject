@@ -1,16 +1,22 @@
-*
 green
-12345
-name: bracelet, metal: golden, weigth: 0.1 kg, price: 1000 uah
-**
+3
+bracelet*golden*0,1*1000
+bangle*platinum*0,2*3200
+cufflink*silver*0,001*500
+
 bandery
-76384
-name: earings, metal: diamond, weigth: 0.01 kg, price: 100000000 uah
-***
+2
+earings*diamond*0,01*100000
+bead*golden*0,3*12000
+
 upa
 1
-name: crown, metal: silver, weigth: 5 kg, price: 100000000000000000 uah
-****
+crown*silver*0,5*500
+
 main
-580498
-name: ring , metal: steel, weigth: 0.07 kg, price: 20000 uah
+5
+ring*steel*0,07*20000
+anklet*golden*0,2*3000
+choker*silver*0,1*1600
+necklace*gold*0,4*23000
+piercing*emerald*0,3*12400

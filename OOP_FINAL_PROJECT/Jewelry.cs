@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_FINAL_PROJECT
 {
-    public class Jewerly
+    public class Jewelry
     {
         private string name;
         private string metal;

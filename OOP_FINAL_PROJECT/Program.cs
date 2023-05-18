@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using static System.Formats.Asn1.AsnWriter;
+using System.IO;
 
 
 namespace OOP_FINAL_PROJECT
@@ -9,110 +11,104 @@ namespace OOP_FINAL_PROJECT
     {
         static void Main(string[] args)
         {
-            string information = @"D:\OOP\Labs\OOP_FINAL_PROJECT\OOP_FINAL_PROJECT\jShInformation.txt";
-            Console.WriteLine("\n ------  Reading from file: ------ \n");
 
-            ArrayList shopInformation1 = new ArrayList();
-            ArrayList shopInformation2 = new ArrayList();
-            ArrayList shopInformation3 = new ArrayList();
-            ArrayList shopInformation4 = new ArrayList();
-
-            string line;
-            string currentBlock = string.Empty;
-
-            using (StreamReader sr = new StreamReader(information))
+            // Зчитуємо дані з файлу
+            var manyStores = new List<JewelryShop>();
+            using (var reader = new StreamReader(@"D:\\OOP\\Labs\\OOP_FINAL_PROJECT\\OOP_FINAL_PROJECT\\jShInformation.txt"))
             {
-                while ((line = sr.ReadLine()) != null)
+                while (!reader.EndOfStream) // перевіряє, чи читач ще не досягнув 
+                                            // кінця потоку, і якщо це так,
+                                            // то виконується тіло циклу,
+                                            // яке зазвичай містить один або
+                                            // кілька рядків коду.
+                                            // Після виконання тіла циклу
+                                            // виконання повертається до початку циклу,
+                                            // і перевіряється умова знову.
+                                            // Цей процес повторюється, доки умова reader.
+                                            // EndOfStream не стане true.
                 {
-                    if (line.StartsWith("*"))
+                   
+                    var shop = new JewelryShop(); //  !!!!!!!!!! створює новий об'єкт класу !!!!!!!!!!!! JewerlyShop і присвоює його посилання змінній store
+                    shop.Address = reader.ReadLine(); // Доступаємось до поля з адресою за допомогою властивостей,
+                                                       // cтворених раніше в JewelryShop,
+                                                       // зчитуємоз файлу адресу за допомогою readline
+                    shop.Amount = int.Parse(reader.ReadLine()); // зчитує наступний рядок з потоку reader,
+                                                               // перетворює його на ціле число
+                                                               // і присвоює його змінній amount
+                    shop.Jewelries = new List<Jewelry>(); // доступаємось до поля Jewelries об'єкту shop,
+                                                          // який ми створили вище,
+                                                          // присвоюємо цьому об'єкту ліст типу Jewelry,
+                                                          // бо цей ліст буде містити характеристики прикраси
+                    for (int i = 0; i < shop.Amount; i++)
                     {
-                        currentBlock = "*";
+                        var line = reader.ReadLine().Split('*'); // створюємо масив з рядків,
+                                                                 // в який будемо звчитувати елементи.
+                                                                 // Кожен новий елемент - частинка файлу розділена комою
+                        var oneJewelry = new Jewelry(); // для кожної прикраси на проміжку вище
+                                                        // ми створюємо об'єкт типу Jewelry,
+                                                        // який містить поля з характеристиками прикраси
+                        oneJewelry.Name = line[0]; // вказуємо, що першим елементом масиву в нас буде ім'я прикраси
+                        oneJewelry.Metal = line[1]; // вказуємо, що другим елементом масиву в нас буде метал, з якого зроблена прикраса
+                        oneJewelry.Weight = double.Parse(line[2]); // вказуємо, що третім елементом масиву в нас буде вага прикраси.
+                                                                   // Приводимо її до типу дабл,
+                                                                   // оскільки записуємо вагу через кому,
+                                                                   // а не через цілі значення
+                        oneJewelry.Price = int.Parse(line[3]); // вказуємо, що четвертим елементом масиву в нас буде ціна прикраси.
+
+                        shop.Jewelries.Add(oneJewelry);
                     }
-                    else if (line.StartsWith("**"))
+                    manyStores.Add(shop);
+                    /*          Console.Write(shop);*/
+
+                    foreach (var jewelryShop11 in manyStores)
                     {
-                        currentBlock = "**";
-                    }
-                    else if (line.StartsWith("***"))
-                    {
-                        currentBlock = "***";
-                    }
-                    else if (line.StartsWith("****"))
-                    {
-                        currentBlock = "****";
+                        Console.WriteLine("Shop Address: " + jewelryShop11.Address);
+                        Console.WriteLine("Number of Jewelries: " + jewelryShop11.Amount);
+                        Console.WriteLine("Jewelries:");
+
+                        foreach (var jewelryItem in shop.Jewelries)
+                        {
+                            Console.WriteLine("Name: " + jewelryItem.Name);
+                            Console.WriteLine("Metal: " + jewelryItem.Metal);
+                            Console.WriteLine("Weight: " + jewelryItem.Weight);
+                            Console.WriteLine("Price: " + jewelryItem.Price);
+                            Console.WriteLine();
+                        }
+
+                        Console.WriteLine("-------------------------");
                     }
 
-
-                    switch (currentBlock)
-                    {
-                        case "*":
-                            shopInformation1.Add(line);
-                            break;
-                        case "**":
-                            shopInformation2.Add(line);
-                            break;
-                        case "***":
-                            shopInformation3.Add(line);
-                            break;
-                        case "****":
-                            shopInformation4.Add(line);
-                            break;
-                    }
 
                 }
+                /*   var stores = new List<JewerlyShop>();
+                   using (var reader = new StreamReader("data.txt"))
+                   {
+                       while (!reader.EndOfStream)
+                       {
+                           var shop = new JewerlyShop();
+                           shop.adress = reader.ReadLine();
+                           shop.Items = new List<JewerlyItem>();
+
+                           var count = int.Parse(reader.ReadLine());
+                           for (int i = 0; i < count; i++)
+                           {
+                               var line = reader.ReadLine().Split(',');
+                               var item = new JewelryItem();
+                               item.Name = line[0];
+                               item.Metal = line[1];
+                               item.Weight = int.Parse(line[2]);
+                               if (int.TryParse(line[2], out int weight))
+                               {
+                                   item.Weight = weight;
+                               }
+                               else
+                               {
+                               }
+                           }
+                       }
+                   }*/
             }
 
-            Console.WriteLine("------  Shop Information 1: ------");
-            foreach (var item in shopInformation1)
-            {
-                Console.WriteLine(item);
-            }
-
-            Console.WriteLine("------  Shop Information 2: ------");
-            foreach (var item in shopInformation2)
-            {
-                Console.WriteLine(item);
-            }
-
-            Console.WriteLine("------  Shop Information 3: ------");
-            foreach (var item in shopInformation3)
-            {
-                Console.WriteLine(item);
-            }
-
-            Console.WriteLine("------  Shop Information 4: ------");
-            foreach (var item in shopInformation4)
-            {
-                Console.WriteLine(item);
-            }
         }
     }
 }
-
-            /*   var stores = new List<JewerlyShop>();
-               using (var reader = new StreamReader("data.txt"))
-               {
-                   while (!reader.EndOfStream)
-                   {
-                       var shop = new JewerlyShop();
-                       shop.adress = reader.ReadLine();
-                       shop.Items = new List<JewerlyItem>();
-
-                       var count = int.Parse(reader.ReadLine());
-                       for (int i = 0; i < count; i++)
-                       {
-                           var line = reader.ReadLine().Split(',');
-                           var item = new JewelryItem();
-                           item.Name = line[0];
-                           item.Metal = line[1];
-                           item.Weight = int.Parse(line[2]);
-                           if (int.TryParse(line[2], out int weight))
-                           {
-                               item.Weight = weight;
-                           }
-                           else
-                           {
-                           }
-                       }
-                   }
-               }*/
-        
