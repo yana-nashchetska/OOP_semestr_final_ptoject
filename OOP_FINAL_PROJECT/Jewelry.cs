@@ -34,6 +34,21 @@ namespace OOP_FINAL_PROJECT
             set { price = value; }
         }
 
+        public void PrintJewelryList()
+        {
+            Console.WriteLine("Name: " + name);
+            Console.WriteLine("Metal: " + metal);
+            Console.WriteLine("Weight: " + weight);
+            Console.WriteLine("Price: " + price);
+            Console.WriteLine();
+        }
+
+
+
+
+
+
+
 
     }
 }

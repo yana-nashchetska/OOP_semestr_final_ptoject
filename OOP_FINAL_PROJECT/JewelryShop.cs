@@ -25,5 +25,18 @@ namespace OOP_FINAL_PROJECT
             get { return _amount; }
             set { _amount = value; }
         }
+
+        public void PrintShopInfo()
+        {
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("Shop Address: " + Address);
+            Console.WriteLine("Number of Jewelries: " + Amount);
+            Console.WriteLine("Jewelries:");
+            foreach (var jewelryItem in Jewelries)
+            {
+                jewelryItem.PrintJewelryList();
+            }
+
+        }
     }
 }

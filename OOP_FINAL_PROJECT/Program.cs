@@ -32,9 +32,9 @@ namespace OOP_FINAL_PROJECT
                     shop.Address = reader.ReadLine(); // Доступаємось до поля з адресою за допомогою властивостей,
                                                        // cтворених раніше в JewelryShop,
                                                        // зчитуємоз файлу адресу за допомогою readline
-                    shop.Amount = int.Parse(reader.ReadLine()); // зчитує наступний рядок з потоку reader,
+                    shop.Amount = Int32.Parse(reader.ReadLine()); // зчитує наступний рядок з потоку reader,
                                                                // перетворює його на ціле число
-                                                               // і присвоює його змінній amount
+                                                               // і присвоює його полю amount
                     shop.Jewelries = new List<Jewelry>(); // доступаємось до поля Jewelries об'єкту shop,
                                                           // який ми створили вище,
                                                           // присвоюємо цьому об'єкту ліст типу Jewelry,
@@ -53,15 +53,24 @@ namespace OOP_FINAL_PROJECT
                                                                    // Приводимо її до типу дабл,
                                                                    // оскільки записуємо вагу через кому,
                                                                    // а не через цілі значення
-                        oneJewelry.Price = int.Parse(line[3]); // вказуємо, що четвертим елементом масиву в нас буде ціна прикраси.
+                        oneJewelry.Price = Int32.Parse(line[3]); // вказуємо, що четвертим елементом масиву в нас буде ціна прикраси.
 
                         shop.Jewelries.Add(oneJewelry);
+                   
                     }
-                    manyStores.Add(shop);
-                    /*          Console.Write(shop);*/
+    
 
+                    for (int i = 0; i<shop.Amount; i++)
+                    {
+                        manyStores.Add(shop);
+                    }
+                    Console.WriteLine(manyStores);
+
+                    /*          Console.Write(shop);*/
+/*
                     foreach (var jewelryShop11 in manyStores)
                     {
+                        Console.WriteLine("-------------------------");
                         Console.WriteLine("Shop Address: " + jewelryShop11.Address);
                         Console.WriteLine("Number of Jewelries: " + jewelryShop11.Amount);
                         Console.WriteLine("Jewelries:");
@@ -76,8 +85,12 @@ namespace OOP_FINAL_PROJECT
                         }
 
                         Console.WriteLine("-------------------------");
-                    }
+                    }*/
 
+                    foreach (var obj in manyStores)
+                    {
+                        obj.PrintShopInfo();
+                    }
 
                 }
                 /*   var stores = new List<JewerlyShop>();
